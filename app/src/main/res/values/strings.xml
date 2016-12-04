@@ -7,4 +7,6 @@
     <string name="hint_enter_name">Enter Name</string>
     <string name="hint_enter_email">Enter Email</string>
     <string name="hint_enter_password">Enter Password</string>
+    <string name="confirm_exit">Are you sure want to exit?</string>
+    <string name="exit">Exit</string>
 </resources>
