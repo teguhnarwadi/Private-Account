@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -21,9 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.narwadi.saveyouraccount.base.RecycleBaseAdapter;
 import com.narwadi.saveyouraccount.helper.AccountHelper;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecycleBaseAdapter recycleBaseAdapter;
 
     private Paint p = new Paint();
+    private AccountModel accountEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initToolbar();
         initViews();
+
+    }
+
+    private void initBottomSheet(AccountModel item) {
+        accountEdit = item;
+
+        // use bottom sheet dialog
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(this);
+        View sheetView = getLayoutInflater().inflate(R.layout.dialog_bottom_sheet, null);
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+
+        // add OnClickListeners to the buttons of the BottomSheet
+        // take the items from the sheetView we defined
+        LinearLayout edit = (LinearLayout) sheetView.findViewById(R.id.fragment_history_bottom_sheet_edit);
+        // add the listeners
+        edit.setOnClickListener(this);
 
     }
 
@@ -105,21 +123,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void recycleClick() {
+        // set on item click
         recycleBaseAdapter.setOnItemClickListener(new RecycleBaseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AccountModel item) {
-//                // Creating Bundle object
-//                Bundle bundle = new Bundle();
-//                // Storing data into bundle
-//                bundle.putSerializable("account", item);
-//
-//                Intent intent = new Intent(MainActivity.this, EditActivity.class);
-//                intent.putExtras(bundle); // Storing bundle object into intent
-//                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                startActivity(intent);
                 // initialze dialog for view account
-
                 initDialog(item);
+            }
+        });
+
+        // set on item long click
+        recycleBaseAdapter.setOnItemLongClickListener(new RecycleBaseAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(AccountModel item) {
+                // The View with the BottomSheetBehavior
+                initBottomSheet(item);
             }
         });
     }
@@ -205,6 +223,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, CreateActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                break;
+            case R.id.fragment_history_bottom_sheet_edit:
+                // Creating Bundle object
+                Bundle bundle = new Bundle();
+                // Storing data into bundle
+                bundle.putSerializable("account", accountEdit);
+
+                Intent intent2 = new Intent(MainActivity.this, EditActivity.class);
+                intent2.putExtras(bundle); // Storing bundle object into intent
+                intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent2);
                 break;
         }
     }

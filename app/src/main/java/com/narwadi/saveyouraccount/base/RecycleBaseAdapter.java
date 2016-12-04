@@ -5,10 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.narwadi.saveyouraccount.R;
-import com.narwadi.saveyouraccount.helper.AccountHelper;
 import com.narwadi.saveyouraccount.model.AccountModel;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class RecycleBaseAdapter extends RecyclerView.Adapter<RecycleBaseAdapter.
     private List<AccountModel> accountList;
     private Context context;
     private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
 
     public RecycleBaseAdapter(Context context, List<AccountModel> accountList) {
         this.accountList = accountList;
@@ -49,8 +51,22 @@ public class RecycleBaseAdapter extends RecyclerView.Adapter<RecycleBaseAdapter.
                 onItemClickListener.onItemClick(account);
             }
         };
+
+        //Setting long click listener
+        View.OnLongClickListener listenerLong = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+//                Toast.makeText(context, "Long", Toast.LENGTH_LONG).show();
+                onItemLongClickListener.onItemLongClick(account);
+                return true;
+            }
+        };
+
         customViewHolder.tvName.setOnClickListener(listener);
         customViewHolder.tvEmail.setOnClickListener(listener);
+
+        customViewHolder.tvName.setOnLongClickListener(listenerLong);
+        customViewHolder.tvEmail.setOnLongClickListener(listenerLong);
     }
 
     @Override
@@ -80,16 +96,25 @@ public class RecycleBaseAdapter extends RecyclerView.Adapter<RecycleBaseAdapter.
         }
     }
 
+    /**
+     * define interface on item click listener
+     */
     public interface OnItemClickListener {
         void onItemClick(AccountModel item);
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    /**
+     * define interface on item long click listener
+     */
+    public interface OnItemLongClickListener {
+        void onItemLongClick(AccountModel item);
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
+    }
 }
