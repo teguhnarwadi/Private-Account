@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initSwipe() {
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -134,15 +135,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.LEFT) {
-//                    Toast.makeText(getApplicationContext(), "Hapus", Toast.LENGTH_LONG).show();
+                    final View viewSnakeBar = viewHolder.itemView;
+                    Snackbar.make(viewSnakeBar, "DELETE", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     //remove from db
                     AccountHelper account = new AccountHelper(MainActivity.this);
                     account.delete(list.get(position).getId());
-                    Toast.makeText(getApplicationContext(), String.valueOf(list.get(position).getId()), Toast.LENGTH_LONG).show();
-                    recycleBaseAdapter.notifyDataSetChanged();
-//                    recycleBaseAdapter.removeItem(position);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Edit", Toast.LENGTH_LONG).show();
+                    recycleBaseAdapter.removeItem(position);
                 }
             }
 
@@ -156,14 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if (dX > 0) {
-                        p.setColor(Color.parseColor("#388E3C"));
-                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
-                        c.drawRect(background, p);
-                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_edit);
-                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
-                        c.drawBitmap(icon, null, icon_dest, p);
-                    } else {
+                    if (dX < 0) {
                         p.setColor(Color.parseColor("#D32F2F"));
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
                         c.drawRect(background, p);
