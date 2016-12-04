@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.narwadi.saveyouraccount.R;
+import com.narwadi.saveyouraccount.helper.AccountHelper;
 import com.narwadi.saveyouraccount.model.AccountModel;
 
 import java.util.List;
@@ -57,10 +58,16 @@ public class RecycleBaseAdapter extends RecyclerView.Adapter<RecycleBaseAdapter.
         return (null != accountList ? accountList.size() : 0);
     }
 
+    public void removeItem(int position) {
+        accountList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, accountList.size());
+    }
+
+
     /**
      * class custom view holder
      */
-
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView tvName;

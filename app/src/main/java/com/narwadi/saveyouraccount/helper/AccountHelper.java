@@ -166,16 +166,14 @@ public class AccountHelper {
      *
      * @param id
      */
-    public void delete(int id) {
+    public void delete(final int id) {
         try {
-            // get data by id
-            final Account results = realm.where(Account.class).equalTo("id", id).findFirst();
-
             realm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
+                    RealmResults<Account> accounts = realm.where(Account.class).equalTo("id", id).findAll();
                     // remove data in results
-                    results.deleteFromRealm();
+                    accounts.deleteAllFromRealm();
                 }
             }, new Realm.Transaction.OnSuccess() {
                 @Override
