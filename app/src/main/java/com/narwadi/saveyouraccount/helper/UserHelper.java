@@ -62,9 +62,31 @@ public class UserHelper {
         return true;
     }
 
+    public User findUser() {
+        User user = realm.where(User.class).equalTo("id", 1).findFirst();
+        return user;
+    }
+
+    public boolean update(final String username, final String password) {
+        try {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    User user = realm.where(User.class).equalTo("id", 1).findFirst();
+                    user.setUsername(username);
+                    user.setPassword(password);
+                }
+            });
+        } finally {
+            realm.close();
+        }
+
+        return true;
+    }
+
     public long getCount() {
-        long xx = realm.where(User.class).count();
-        return xx;
+        long count = realm.where(User.class).count();
+        return count;
     }
 
     public boolean login(final String username, final String password) {

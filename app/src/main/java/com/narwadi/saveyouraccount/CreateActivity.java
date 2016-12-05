@@ -23,7 +23,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_navigation_up);
+        toolbar.setNavigationIcon(R.drawable.ic_up);
         setSupportActionBar(toolbar);
 
         final EditText etName = (EditText) findViewById(R.id.editText_name);
