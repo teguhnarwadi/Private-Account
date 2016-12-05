@@ -2,7 +2,10 @@ package com.narwadi.saveyouraccount.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 import android.widget.BaseAdapter;
+
+import com.narwadi.saveyouraccount.model.User;
 
 import java.util.Date;
 
@@ -47,8 +50,28 @@ public class BaseApp extends Application {
                         .addField("name", String.class)
                         .addField("email", String.class)
                         .addField("password", String.class);
+                schema.create("Users")
+                        .addField("id", int.class)
+                        .addField("username", String.class)
+                        .addField("password", String.class);
                 oldVersion++;
             }
+        }
+    }
+
+    /**
+     * class for seeder data into database
+     */
+    private class seederData implements Realm.Transaction {
+
+        @Override
+        public void execute(Realm realm) {
+            User user = new User();
+            user.setId(1);
+            user.setUsername("admin");
+            user.setPassword("password");
+            realm.copyToRealm(user);
+            Log.d("BaseApp", "Insert");
         }
     }
 }

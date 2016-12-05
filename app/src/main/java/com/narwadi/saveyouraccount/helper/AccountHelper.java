@@ -83,7 +83,7 @@ public class AccountHelper {
 
         try {
             realmResults = realm.where(Account.class).findAll();
-            realmResults.sort("id", Sort.DESCENDING);
+//            realmResults.sort("id", Sort.DESCENDING);
 
             if (realmResults.size() > 0) {
                 showLog("Size : " + realmResults.size());
