@@ -179,13 +179,13 @@ public class AccountHelper {
                 @Override
                 public void onSuccess() {
                     showLog("Hapus data berhasil.");
-                    showToast("Hapus data berhasil.");
+//                    showToast("Hapus data berhasil.");
                 }
             }, new Realm.Transaction.OnError() {
                 @Override
                 public void onError(Throwable error) {
                     showLog("Hapus data gagal.");
-                    showToast("Hapus data gagal.");
+//                    showToast("Hapus data gagal.");
                 }
             });
         } finally {

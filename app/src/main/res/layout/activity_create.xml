@@ -26,27 +26,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/hint_enter_name" />
+            android:hint="@string/hint_enter_name"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:maxLines="1"
+            android:singleLine="true"/>
 
         <EditText
             android:id="@+id/editText_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/hint_enter_email" />
+            android:hint="@string/hint_enter_email"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:maxLines="1"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/editText_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="@string/hint_enter_password" />
+            android:hint="@string/hint_enter_password"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:maxLines="1"
+            android:singleLine="true" />
 
         <Button
             android:id="@+id/button_save"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:text="@string/button_save" />
 
     </LinearLayout>
