@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/gradiant"
     tools:context="com.narwadi.saveyouraccount.LoginActivity">
 
     <!-- Login progress -->
@@ -30,9 +31,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="50dp"
+                android:layout_gravity="center"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@mipmap/ic_launcher"/>
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorPrimary"
+                android:backgroundTint="@color/colorPrimary">
 
                 <EditText
                     android:id="@+id/email"
@@ -40,6 +51,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_username"
                     android:inputType="text"
+                    android:textColor="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -47,7 +60,9 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorPrimary"
+                android:backgroundTint="@color/colorPrimary">
 
                 <EditText
                     android:id="@+id/password"
@@ -58,6 +73,8 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
+                    android:textColor="@color/colorPrimary"
+                    android:backgroundTint="@color/colorPrimary"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -70,6 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimary"
                 android:textStyle="bold" />
 
         </LinearLayout>
