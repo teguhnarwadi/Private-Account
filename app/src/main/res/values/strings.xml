@@ -28,4 +28,5 @@
     <string name="prompt_username">Username</string>
     <string name="app_account">Account</string>
     <string name="share">Share</string>
+    <string name="hint_enter_confirm_password">Enter Confirm Password</string>
 </resources>
