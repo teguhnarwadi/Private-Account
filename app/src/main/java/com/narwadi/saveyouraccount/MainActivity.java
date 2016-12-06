@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // add OnClickListeners to the buttons of the BottomSheet
         // take the items from the sheetView we defined
-        LinearLayout edit = (LinearLayout) sheetView.findViewById(R.id.fragment_history_bottom_sheet_edit);
+        LinearLayout share = (LinearLayout) sheetView.findViewById(R.id.fragment_history_bottom_sheet_share);
         // add the listeners
-        edit.setOnClickListener(this);
+        share.setOnClickListener(this);
 
     }
 
@@ -223,18 +223,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 break;
-            case R.id.fragment_history_bottom_sheet_edit:
-                // Creating Bundle object
-                Bundle bundle = new Bundle();
-                // Storing data into bundle
-                bundle.putSerializable("account", accountEdit);
-
-                Intent intent2 = new Intent(MainActivity.this, EditActivity.class);
-                intent2.putExtras(bundle); // Storing bundle object into intent
-                intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent2);
+            case R.id.fragment_history_bottom_sheet_share:
+                // set content from account
+                String content = accountEdit.getName() + "\n" + accountEdit.getEmail() + "\n" + accountEdit.getPassword();
+                // start intent share text content
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, content);
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
                 break;
-            case R.id.imageButton_user :
+            case R.id.imageButton_user:
                 Intent intent3 = new Intent(MainActivity.this, UserActivity.class);
                 intent3.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent3);
