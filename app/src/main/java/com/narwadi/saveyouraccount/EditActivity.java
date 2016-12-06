@@ -39,10 +39,10 @@ public class EditActivity extends AppCompatActivity {
 
         AccountModel account = (AccountModel) bundle.getSerializable("account");
 
-        final int id = account.getId();
-        etName.setText(account.getName());
-        etEmail.setText(account.getEmail());
-        etPassword.setText(account.getPassword());
+        final int id = account.getId() != 0 ? account.getId() : 0;
+        etName.setText(account.getName() != null ? account.getName() : null);
+        etEmail.setText(account.getEmail() != null ? account.getEmail() : null);
+        etPassword.setText(account.getPassword() != null ? account.getPassword() : null);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initSwipe() {
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -163,6 +163,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AccountHelper account = new AccountHelper(MainActivity.this);
                     account.delete(list.get(position).getId());
                     recycleBaseAdapter.removeItem(position);
+                } else {
+                    accountEdit = list.get(position);
+                    // Creating Bundle object
+                    Bundle bundle = new Bundle();
+                    // Storing data into bundle
+                    bundle.putSerializable("account", accountEdit);
+                    // Start intent
+                    Intent intent2 = new Intent(MainActivity.this, EditActivity.class);
+                    // Storing bundle object into intent
+                    intent2.putExtras(bundle);
+                    intent2.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent2);
                 }
             }
 
@@ -176,7 +188,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     float height = (float) itemView.getBottom() - (float) itemView.getTop();
                     float width = height / 3;
 
-                    if (dX < 0) {
+                    if (dX > 0) {
+                        p.setColor(Color.parseColor("#388E3C"));
+                        RectF background = new RectF((float) itemView.getLeft(), (float) itemView.getTop(), dX, (float) itemView.getBottom());
+                        c.drawRect(background, p);
+                        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_edit);
+                        RectF icon_dest = new RectF((float) itemView.getLeft() + width, (float) itemView.getTop() + width, (float) itemView.getLeft() + 2 * width, (float) itemView.getBottom() - width);
+                        c.drawBitmap(icon, null, icon_dest, p);
+                    } else {
                         p.setColor(Color.parseColor("#D32F2F"));
                         RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
                         c.drawRect(background, p);
