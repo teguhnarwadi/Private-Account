@@ -1,5 +1,8 @@
 package com.narwadi.saveyouraccount;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -25,6 +28,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.narwadi.saveyouraccount.base.RecycleBaseAdapter;
 import com.narwadi.saveyouraccount.helper.AccountHelper;
@@ -32,7 +36,7 @@ import com.narwadi.saveyouraccount.model.AccountModel;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private static final String TAG = "MainActivity";
     private ArrayList<AccountModel> list = new ArrayList<>();
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Paint p = new Paint();
     private AccountModel accountEdit;
+    private String strName;
+    private String strEmail;
+    private String strPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +83,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView name = (TextView) view.findViewById(R.id.textView_name);
         TextView email = (TextView) view.findViewById(R.id.textView_email);
         TextView password = (TextView) view.findViewById(R.id.textView_password);
-        name.setText(item.getName());
-        email.setText(item.getEmail());
-        password.setText(item.getPassword());
+
+        strName = item.getName();
+        strEmail = item.getEmail();
+        strPassword = item.getPassword();
+        name.setText(strName);
+        email.setText(strEmail);
+        password.setText(strPassword);
+
+        // set text view to on click
+        email.setOnLongClickListener(this);
+        password.setOnLongClickListener(this);
 
         alertDialog.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
             @Override
@@ -238,7 +253,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent3.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent3);
                 break;
+
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case R.id.textView_email:
+                // action copy email to clipboard
+                Toast.makeText(getApplicationContext(), "Copy "+strEmail, Toast.LENGTH_LONG).show();
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText("username", strEmail);
+                clipboardManager.setPrimaryClip(clipData);
+                return true;
+            case R.id.textView_password:
+                // action copy password to clipboard
+                Toast.makeText(getApplicationContext(), "Copy "+strPassword, Toast.LENGTH_LONG).show();
+                ClipboardManager clipboardManager2 = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData2 = ClipData.newPlainText("password", strPassword);
+                clipboardManager2.setPrimaryClip(clipData2);
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -269,4 +306,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         alert.show();
     }
+
 }
