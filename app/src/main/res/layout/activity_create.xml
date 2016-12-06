@@ -27,9 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="@string/hint_enter_name"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
             android:maxLines="1"
             android:singleLine="true"/>
 
@@ -39,9 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="@string/hint_enter_email"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -51,9 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="@string/hint_enter_password"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
             android:maxLines="1"
             android:singleLine="true" />
 
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:text="@string/button_save" />
 
     </LinearLayout>
